@@ -1,0 +1,628 @@
+import { useState } from "react";
+import "./App.css";
+
+const metrics = [
+  {
+    label: "TRUST SCORE",
+    value: "87.4",
+    detail: "↑ 4.8% this period",
+    tone: "blue",
+  },
+  {
+    label: "AI QUALITY",
+    value: "91",
+    detail: "High confidence",
+    tone: "purple",
+  },
+  {
+    label: "ANOMALY STATUS",
+    value: "LOW",
+    detail: "No critical signals",
+    tone: "green",
+  },
+  {
+    label: "SYBIL RISK",
+    value: "LOW",
+    detail: "Structural GNN",
+    tone: "green",
+  },
+];
+
+const activities = [
+  {
+    type: "AI",
+    title: "Contribution quality assessment completed",
+    description: "Quality score generated from code, research and documentation signals.",
+    time: "2 min ago",
+  },
+  {
+    type: "ZK",
+    title: "Credential verification successful",
+    description: "Groth16 proof verified without exposing the underlying credential score.",
+    time: "8 min ago",
+  },
+  {
+    type: "SEC",
+    title: "Structural identity analysis completed",
+    description: "No significant Sybil-pattern similarity detected.",
+    time: "14 min ago",
+  },
+  {
+    type: "GRAPH",
+    title: "Reputation graph synchronized",
+    description: "Neo4j contribution and reputation relationships updated.",
+    time: "21 min ago",
+  },
+];
+
+function App() {
+  const [activePage, setActivePage] = useState("overview");
+  return (
+    <div className="shell">
+      <aside className="sidebar">
+        <div className="brand">
+          <div className="brand-mark">TC</div>
+          <div>
+            <h1>TrustChain</h1>
+            <span>Intelligence Platform</span>
+          </div>
+        </div>
+
+        <div className="workspace">
+          <span>WORKSPACE</span>
+          <strong>Institution Alpha</strong>
+        </div>
+
+        <nav>
+        <p className="nav-title">MONITORING</p>
+
+        <button
+          className={`nav-item ${activePage === "overview" ? "active" : ""}`}
+          onClick={() => setActivePage("overview")}
+        >
+          <span>◈</span>
+          Overview
+        </button>
+
+        <button
+          className={`nav-item ${activePage === "contributors" ? "active" : ""}`}
+          onClick={() => setActivePage("contributors")}
+        >
+          <span>◎</span>
+          Contributors
+        </button>
+
+        <button
+          className={`nav-item ${activePage === "ai" ? "active" : ""}`}
+          onClick={() => setActivePage("ai")}
+        >
+          <span>⌁</span>
+          Contribution AI
+        </button>
+
+        <p className="nav-title security-title">SECURITY</p>
+
+        <button
+          className={`nav-item ${activePage === "anomaly" ? "active" : ""}`}
+          onClick={() => setActivePage("anomaly")}
+        >
+          <span>△</span>
+          Anomaly Detection
+        </button>
+
+        <button
+          className={`nav-item ${activePage === "zk" ? "active" : ""}`}
+          onClick={() => setActivePage("zk")}
+        >
+          <span>◇</span>
+          ZK Credentials
+        </button>
+
+        <button
+          className={`nav-item ${activePage === "sybil" ? "active" : ""}`}
+          onClick={() => setActivePage("sybil")}
+        >
+          <span>⬡</span>
+          Sybil Detection
+        </button>
+
+        <p className="nav-title security-title">REPUTATION</p>
+
+        <button
+          className={`nav-item ${activePage === "reputation" ? "active" : ""}`}
+          onClick={() => setActivePage("reputation")}
+        >
+          <span>↗</span>
+          Reputation Graph
+        </button>
+
+        <button
+          className={`nav-item ${activePage === "audit" ? "active" : ""}`}
+          onClick={() => setActivePage("audit")}
+        >
+          <span>▣</span>
+          Audit Activity
+        </button>
+      </nav>
+
+        <div className="sidebar-bottom">
+          <div className="environment">
+            <span className="online-dot"></span>
+            <div>
+              <strong>Development</strong>
+              <small>All systems operational</small>
+            </div>
+          </div>
+
+          <div className="version">TrustChain v1.0.0</div>
+        </div>
+      </aside>
+
+      <div className="main-area">
+        <header className="topbar">
+          <div>
+            <span className="breadcrumb">TrustChain / Overview</span>
+            <h2>Trust Intelligence</h2>
+          </div>
+
+          <div className="top-actions">
+            <div className="live-status">
+              <span></span>
+              SYSTEM HEALTHY
+            </div>
+
+            <button className="icon-button">⌕</button>
+            <div className="avatar">PA</div>
+          </div>
+        </header>
+
+        {activePage === "overview" ? (
+        <main className="content">
+          <section className="page-intro">
+            <div>
+              <span className="section-kicker">CONTRIBUTOR INTELLIGENCE</span>
+              <h3>Reputation Overview</h3>
+              <p>
+                Unified intelligence across contribution quality, behavioral
+                anomalies, credential verification and identity risk.
+              </p>
+            </div>
+
+            <button className="refresh-button">↻ Refresh analysis</button>
+          </section>
+
+          <section className="metric-grid">
+            {metrics.map((metric) => (
+              <div className="metric-card" key={metric.label}>
+                <div className="metric-top">
+                  <span>{metric.label}</span>
+                  <div className={`metric-icon ${metric.tone}`}>●</div>
+                </div>
+
+                <strong>{metric.value}</strong>
+                <small>{metric.detail}</small>
+              </div>
+            ))}
+          </section>
+
+          <section className="analysis-grid">
+            <div className="panel reputation-panel">
+              <div className="panel-heading">
+                <div>
+                  <span className="section-kicker">REPUTATION SIGNAL</span>
+                  <h4>Trust trajectory</h4>
+                </div>
+
+                <select defaultValue="30">
+                  <option value="30">Last 30 days</option>
+                  <option value="90">Last 90 days</option>
+                </select>
+              </div>
+
+              <div className="chart-area">
+                <div className="chart-y">
+                  <span>100</span>
+                  <span>80</span>
+                  <span>60</span>
+                  <span>40</span>
+                </div>
+
+                <div className="chart">
+                  <div className="grid-line line-1"></div>
+                  <div className="grid-line line-2"></div>
+                  <div className="grid-line line-3"></div>
+                  <div className="grid-line line-4"></div>
+
+                  <svg
+                    viewBox="0 0 700 220"
+                    preserveAspectRatio="none"
+                    className="chart-svg"
+                  >
+                    <defs>
+                      <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stopOpacity="0.24" />
+                        <stop offset="100%" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+
+                    <path
+                      className="chart-fill"
+                      d="M0 172 C80 164 105 150 160 157 C220 165 245 124 300 133 C355 142 370 107 425 115 C480 123 510 78 565 91 C620 103 650 65 700 49 L700 220 L0 220 Z"
+                    />
+
+                    <path
+                      className="chart-line"
+                      d="M0 172 C80 164 105 150 160 157 C220 165 245 124 300 133 C355 142 370 107 425 115 C480 123 510 78 565 91 C620 103 650 65 700 49"
+                    />
+
+                    <circle cx="700" cy="49" r="5" className="chart-point" />
+                  </svg>
+
+                  <div className="chart-x">
+                    <span>Aug 08</span>
+                    <span>Aug 15</span>
+                    <span>Aug 22</span>
+                    <span>Aug 29</span>
+                    <span>Sep 05</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="chart-summary">
+                <div>
+                  <span>Current trust</span>
+                  <strong>87.4</strong>
+                </div>
+                <div>
+                  <span>Previous period</span>
+                  <strong>82.6</strong>
+                </div>
+                <div>
+                  <span>Net change</span>
+                  <strong className="positive">+4.8</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="panel security-panel">
+              <div className="panel-heading">
+                <div>
+                  <span className="section-kicker">SECURITY INTELLIGENCE</span>
+                  <h4>Risk assessment</h4>
+                </div>
+                <span className="status-badge">MONITORED</span>
+              </div>
+
+              <div className="security-row">
+                <div className="security-label">
+                  <div className="security-code">F2</div>
+                  <div>
+                    <strong>Temporal Anomaly</strong>
+                    <small>Behavioral sequence analysis</small>
+                  </div>
+                </div>
+                <span className="risk low">LOW</span>
+              </div>
+
+              <div className="security-row">
+                <div className="security-label">
+                  <div className="security-code">F3</div>
+                  <div>
+                    <strong>ZK Credential</strong>
+                    <small>Groth16 proof verification</small>
+                  </div>
+                </div>
+                <span className="risk verified">VERIFIED</span>
+              </div>
+
+              <div className="security-row">
+                <div className="security-label">
+                  <div className="security-code">F5</div>
+                  <div>
+                    <strong>Sybil Detection</strong>
+                    <small>Structural GNN analysis</small>
+                  </div>
+                </div>
+                <span className="risk low">LOW</span>
+              </div>
+
+              <div className="security-footer">
+                <span>Last security scan</span>
+                <strong>Today, 17:42</strong>
+              </div>
+            </div>
+          </section>
+
+          <section className="panel activity-panel">
+            <div className="panel-heading">
+              <div>
+                <span className="section-kicker">SYSTEM ACTIVITY</span>
+                <h4>Recent intelligence events</h4>
+              </div>
+
+              <button className="view-all">View audit log →</button>
+            </div>
+
+            <div className="activity-list">
+              {activities.map((activity) => (
+                <div className="activity-row" key={activity.title}>
+                  <div className={`activity-icon ${activity.type.toLowerCase()}`}>
+                    {activity.type}
+                  </div>
+
+                  <div className="activity-info">
+                    <strong>{activity.title}</strong>
+                    <p>{activity.description}</p>
+                  </div>
+
+                  <time>{activity.time}</time>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <footer>
+            <span>TrustChain AI-Powered Contribution Intelligence</span>
+            <span>Secure • Explainable • Privacy-Aware</span>
+          </footer>
+        </main>
+      ) : (
+        <main className="content">
+          <section className="page-title">
+            <div>
+              <span className="section-kicker">TRUSTCHAIN INTELLIGENCE</span>
+              <h3>{activePage.replace("-", " ").toUpperCase()}</h3>
+              <p>
+                Intelligence module ready for analysis and operational review.
+              </p>
+            </div>
+          </section>
+
+          {activePage === "contributors" ? (
+          <section className="panel contributors-panel">
+            <div className="panel-heading">
+              <div>
+                <span className="section-kicker">IDENTITY INTELLIGENCE</span>
+                <h4>Contributor Registry</h4>
+              </div>
+              <span className="status-badge">6 IDENTITIES</span>
+            </div>
+
+            <div className="contributor-summary">
+              <div>
+                <span className="summary-label">ACTIVE CONTRIBUTORS</span>
+                <strong>6</strong>
+              </div>
+              <div>
+                <span className="summary-label">HIGH TRUST</span>
+                <strong>4</strong>
+              </div>
+              <div>
+                <span className="summary-label">SECURITY FLAGS</span>
+                <strong>2</strong>
+              </div>
+            </div>
+
+            <div className="contributor-table">
+              <div className="table-header">
+                <span>CONTRIBUTOR</span>
+                <span>TRUST</span>
+                <span>AI QUALITY</span>
+                <span>RISK</span>
+                <span>STATUS</span>
+              </div>
+
+              {[
+                ["Contributor 001", "92.4", "91", "LOW", "Verified"],
+                ["Contributor 002", "87.4", "88", "LOW", "Verified"],
+                ["Contributor 003", "81.7", "84", "LOW", "Verified"],
+                ["Contributor 101", "42.1", "39", "HIGH", "Review"],
+                ["Contributor 102", "38.6", "35", "HIGH", "Review"],
+                ["Contributor 103", "35.2", "31", "HIGH", "Review"]
+              ].map((row) => (
+                <div className="table-row" key={row[0]}>
+                  <strong>{row[0]}</strong>
+                  <span>{row[1]}</span>
+                  <span>{row[2]}</span>
+                  <span className={row[3] === "HIGH" ? "risk-high" : "risk-low"}>
+                    {row[3]}
+                  </span>
+                  <span className={row[4] === "Verified" ? "verified" : "review"}>
+                    {row[4]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section className="panel activity-panel">
+            <div className="panel-heading">
+              <div>
+                <span className="section-kicker">MODULE STATUS</span>
+                <h4>{activePage.replace("-", " ")} workspace</h4>
+              </div>
+              <span className="status-badge">ACTIVE</span>
+            </div>
+
+            <div className="module-placeholder">
+              {activePage === "ai" ? (
+                <div className="ai-workspace">
+                  <div className="ai-score-header">
+                    <div>
+                      <span className="section-kicker">F4 • CONTRIBUTION INTELLIGENCE</span>
+                      <h3>AI Contribution Quality Assessment</h3>
+                      <p>Multi-signal evaluation across code, research and documentation.</p>
+                    </div>
+                    <div className="ai-score">
+                      <span>QUALITY SCORE</span>
+                      <strong>91</strong>
+                      <small>/ 100</small>
+                    </div>
+                  </div>
+
+                  <div className="ai-signal-grid">
+                    <div className="ai-signal">
+                      <span>CODE QUALITY</span>
+                      <strong>92%</strong>
+                      <div className="signal-bar"><i style={{width: "92%"}}></i></div>
+                    </div>
+
+                    <div className="ai-signal">
+                      <span>RESEARCH VALUE</span>
+                      <strong>86%</strong>
+                      <div className="signal-bar"><i style={{width: "86%"}}></i></div>
+                    </div>
+
+                    <div className="ai-signal">
+                      <span>DOCUMENTATION</span>
+                      <strong>89%</strong>
+                      <div className="signal-bar"><i style={{width: "89%"}}></i></div>
+                    </div>
+                  </div>
+
+                  <div className="ai-analysis-footer">
+                    <div>
+                      <span>MODEL</span>
+                      <strong>CodeBERT / SciBERT</strong>
+                    </div>
+                    <div>
+                      <span>CONFIDENCE</span>
+                      <strong>HIGH</strong>
+                    </div>
+                    <div>
+                      <span>ASSESSMENT</span>
+                      <strong className="verified">EXCELLENT</strong>
+                    </div>
+                  </div>
+                </div>
+        ) : activePage === "anomaly" ? (
+          <div className="anomaly-workspace">
+            <div className="anomaly-header">
+              <div>
+                <span className="section-kicker">F2 • TEMPORAL INTELLIGENCE</span>
+                <h3>Temporal Anomaly Detection</h3>
+                <p>
+                  Behavioral sequence analysis across contributor activity,
+                  reputation changes and temporal signals.
+                </p>
+              </div>
+
+              <div className="anomaly-status-card">
+                <span>ANOMALY STATUS</span>
+                <strong>LOW</strong>
+                <small>No critical signals detected</small>
+              </div>
+            </div>
+
+            <div className="anomaly-grid">
+              <div className="anomaly-panel">
+                <span className="section-kicker">BEHAVIORAL SIGNALS</span>
+                <h4>Temporal risk profile</h4>
+
+                <div className="anomaly-signal">
+                  <div>
+                    <span>Activity consistency</span>
+                    <strong>94%</strong>
+                  </div>
+                  <div className="signal-bar">
+                    <i style={{width: "94%"}}></i>
+                  </div>
+                </div>
+
+                <div className="anomaly-signal">
+                  <div>
+                    <span>Reputation stability</span>
+                    <strong>88%</strong>
+                  </div>
+                  <div className="signal-bar">
+                    <i style={{width: "88%"}}></i>
+                  </div>
+                </div>
+
+                <div className="anomaly-signal">
+                  <div>
+                    <span>Contribution cadence</span>
+                    <strong>91%</strong>
+                  </div>
+                  <div className="signal-bar">
+                    <i style={{width: "91%"}}></i>
+                  </div>
+                </div>
+              </div>
+
+              <div className="anomaly-panel">
+                <span className="section-kicker">MODEL OUTPUT</span>
+                <h4>Temporal GNN assessment</h4>
+
+                <div className="anomaly-result">
+                  <strong>LOW RISK</strong>
+                  <span>Normal behavioral trajectory</span>
+                </div>
+
+                <div className="anomaly-meta">
+                  <div>
+                    <span>MODEL</span>
+                    <strong>EvolveGCN-inspired</strong>
+                  </div>
+                  <div>
+                    <span>CONFIDENCE</span>
+                    <strong>HIGH</strong>
+                  </div>
+                  <div>
+                    <span>WINDOW</span>
+                    <strong>30 DAYS</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="anomaly-timeline">
+              <div className="panel-heading">
+                <div>
+                  <span className="section-kicker">TEMPORAL ANALYSIS</span>
+                  <h4>Behavioral trajectory</h4>
+                </div>
+                <span className="status-badge">MONITORED</span>
+              </div>
+
+              <div className="timeline-track">
+                <div className="timeline-point">
+                  <span></span>
+                  <strong>Baseline</strong>
+                  <small>30 days ago</small>
+                </div>
+
+                <div className="timeline-point">
+                  <span></span>
+                  <strong>Stable</strong>
+                  <small>14 days ago</small>
+                </div>
+
+                <div className="timeline-point">
+                  <span></span>
+                  <strong>Current</strong>
+                  <small>Today</small>
+                </div>
+              </div>
+            </div>
+          </div>
+                <div className="module-placeholder-content">
+                  <div className="module-placeholder-icon">TC</div>
+                  <h4>Intelligence module initialized</h4>
+                  <p>
+                    This workspace will connect to the TrustChain intelligence
+                    services in the next integration stage.
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+        </main>
+      )}
+      </div>
+    </div>
+  );
+}
+
+export default App;

@@ -20,6 +20,8 @@ from app.api.research import router as research_router
 from app.api.documentation import router as documentation_router
 from app.api.temporal_anomaly import router as temporal_anomaly_router
 from app.api.zk_verification import router as zk_verification_router
+from app.api.sybil_detection import router as sybil_detection_router
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -39,6 +41,7 @@ app.include_router(research_router)
 app.include_router(documentation_router)
 app.include_router(temporal_anomaly_router)
 app.include_router(zk_verification_router)
+app.include_router(sybil_detection_router)
 
 @app.get("/")
 def root():
