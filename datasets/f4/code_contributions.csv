@@ -1,0 +1,11 @@
+contribution_id,title,description,code_text,complexity,test_coverage,documentation_quality,review_quality,impact,quality_label
+1,JWT Authentication,"Implemented secure JWT authentication with token validation and refresh support","def validate_token(token): return verify_signature(token)",4,92,90,88,85,89
+2,Database Connection,"Added PostgreSQL connection pooling and transaction handling","def connect(): engine = create_engine(url, pool_pre_ping=True)",5,88,86,84,80,85
+3,Simple Calculator,"Added calculator operations","def add(a,b): return a+b",2,100,60,50,40,58
+4,User Registration,"Implemented registration with validation and password hashing","def register(user): validate(user); hash_password(user.password)",6,95,93,91,88,92
+5,Temporary Script,"Added a quick script without tests or documentation","print('hello world')",1,0,20,10,5,12
+6,API Rate Limiting,"Implemented configurable API rate limiting middleware","class RateLimiter: ...",7,90,87,89,86,90
+7,Logging Improvement,"Improved structured application logging","logger.info('request processed')",3,85,82,80,70,79
+8,Refactor Module,"Refactored duplicated service logic into reusable functions","def process(data): return normalize(data)",5,90,88,85,82,86
+9,Security Patch,"Fixed input validation vulnerability","if not valid_input(data): raise ValueError()",6,97,95,94,96,96
+10,Documentation Only,"Updated README examples","README documentation changes",1,100,95,70,45,67

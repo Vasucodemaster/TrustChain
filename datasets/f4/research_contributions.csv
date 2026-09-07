@@ -1,0 +1,12 @@
+contribution_id,title,description,research_text,methodology_quality,technical_depth,clarity,novelty,impact,quality_label
+101,Privacy Preserving Reputation,"A framework for privacy-preserving contributor reputation","We propose a privacy-preserving reputation architecture using differential privacy and zero-knowledge proofs.",90,92,91,88,86,89
+102,Graph Based Sybil Detection,"Detecting coordinated fake identities using graph learning","We investigate graph neural networks for detecting coordinated identity clusters.",88,90,87,91,89,89
+103,Blockchain Credentials,"Portable contributor credentials using blockchain","This work presents a blockchain-based credential architecture.",82,84,86,78,80,82
+104,Simple Survey,"A survey of software developers","This paper summarizes responses from developers.",65,60,80,50,55,62
+105,Temporal Reputation,"Temporal graph models for reputation evolution","We model reputation as a temporal graph and identify anomalous reputation changes.",94,95,90,93,91,93
+106,Data Management,"Managing contributor metadata","We discuss storing contributor metadata in relational databases.",70,68,82,55,60,67
+107,Federated Reputation,"Federated learning for institutional reputation models","We train reputation models across institutions without centralizing raw contribution data.",91,93,89,94,92,92
+108,Contribution Quality,"Machine learning for contribution assessment","A machine learning framework estimates contribution quality from multiple signals.",87,88,90,85,87,87
+109,Graph Security,"Security analysis of contributor graphs","We analyze graph structures for suspicious behavior.",84,86,85,80,83,84
+110,Research Notes,"Initial research observations","Early observations about contributor reputation systems.",55,52,70,40,45,52
+
