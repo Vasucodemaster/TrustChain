@@ -8,6 +8,7 @@ const NAV = [
   { id: "temporal", code: "F2", label: "Temporal Anomaly" },
   { id: "zk", code: "F3", label: "ZK Verification" },
   { id: "sybil", code: "F5", label: "Sybil Detection" },
+  { id: "reputation", code: "F6", label: "Dynamic Reputation" },
 ];
 
 const T = 75;
@@ -573,6 +574,7 @@ export default function App() {
     temporal: <TemporalPage people={CONTRIBUTORS} selected={selected} onSelect={select} />,
     zk: <ZkPage person={selected} log={log} onProve={prove} />,
     sybil: <SybilPage people={CONTRIBUTORS} selected={selected} onSelect={select} />,
+    reputation: <ReputationPage person={selected} />,
   }[view];
 
   return (
