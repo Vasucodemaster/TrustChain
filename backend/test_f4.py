@@ -4,6 +4,8 @@ import json
 url = "http://127.0.0.1:8000/contributions/"
 
 data = {
+    "user_id": 1,
+    "type": "code",
     "title": "Privacy-Preserving Federated Learning Framework",
 
     "description": (

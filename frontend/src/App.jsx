@@ -508,6 +508,211 @@ function SybilPage({ people, selected, onSelect }) {
     </>
   );
 }
+function ReputationPage({ person }) {
+  const [blockchainData, setBlockchainData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState("");
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadReputation() {
+      setLoading(true);
+      setApiError("");
+
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/reputation/blockchain/1"
+        );
+
+        if (!response.ok) {
+          throw new Error(`API returned HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (active) {
+          setBlockchainData(data);
+        }
+      } catch (error) {
+        if (active) {
+          setApiError(error.message || "Unable to load blockchain data.");
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadReputation();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const score = blockchainData?.score ?? person?.reputation ?? person?.quality ?? 85;
+  const previous = person?.previousReputation ?? 78;
+  const delta = score - previous;
+  return (
+    <>
+      <PageTitle
+        kicker="F6 · SOULBOUND REPUTATION"
+        title="Dynamic reputation"
+        subtitle="A non-transferable reputation layer built from verified contribution evidence."
+      />
+
+      <div className="overview-grid">
+
+        <section className="panel">
+          <div className="panel-head">
+            <div>
+              <div className="eyebrow">CURRENT REPUTATION</div>
+              <h3>{person?.name || "Contributor"}</h3>
+            </div>
+            <Pill tone="ok">SOULBOUND</Pill>
+          </div>
+          {loading && <p>Loading blockchain reputation...</p>}
+          {apiError && (
+            <p role="alert">
+              Blockchain data unavailable: {apiError}
+            </p>
+          )}
+          <div className="score-display">
+            <span>{score}</span>
+            <small>/ 100</small>
+          </div>
+
+          <div className="score-bar">
+            <div style={{ width: `${Math.min(score, 100)}%` }} />
+          </div>
+
+          <div className="metric-row">
+            <span>Previous reputation</span>
+            <strong>{previous}</strong>
+          </div>
+
+          <div className="metric-row">
+            <span>Change</span>
+            <strong>
+              {delta >= 0 ? "+" : ""}
+              {delta}
+            </strong>
+          </div>
+        </section>
+
+        <section className="panel">
+          <div className="panel-head">
+            <div>
+              <div className="eyebrow">REPUTATION SIGNALS</div>
+              <h3>Evidence sources</h3>
+            </div>
+          </div>
+
+          <div className="security-list">
+            <div className="security-row">
+              <span>Contribution quality</span>
+              <Pill tone="ok">VERIFIED</Pill>
+            </div>
+
+            <div className="security-row">
+              <span>Temporal consistency</span>
+              <Pill tone="ok">STABLE</Pill>
+            </div>
+
+            <div className="security-row">
+              <span>Sybil risk</span>
+              <Pill tone="ok">LOW</Pill>
+            </div>
+
+            <div className="security-row">
+              <span>Credential proof</span>
+              <Pill tone="ok">VERIFIED</Pill>
+            </div>
+
+            <div className="security-row">
+              <span>Identity ownership</span>
+              <Pill tone="ok">BOUND</Pill>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <section className="panel" style={{ marginTop: "18px" }}>
+        <div className="panel-head">
+          <div>
+            <div className="eyebrow">F6 REPUTATION LOGIC</div>
+            <h3>Dynamic • non-transferable • evidence-driven</h3>
+          </div>
+        </div>
+
+        <div className="signal-grid">
+          <div>
+            <strong>01</strong>
+            <span>Evidence accumulated</span>
+          </div>
+
+          <div>
+            <strong>02</strong>
+            <span>Reputation updated</span>
+          </div>
+
+          <div>
+            <strong>03</strong>
+            <span>Token remains bound</span>
+          </div>
+
+          <div>
+            <strong>04</strong>
+            <span>Risk signals can reduce trust</span>
+          </div>
+        </div>
+
+        <div className="analysis-meta">
+          <span>CONTRIBUTOR</span>
+          <strong>{person?.name || "Contributor"}</strong>
+
+          <span>BLOCKCHAIN OWNER</span>
+          <strong className="owner-address">
+            {blockchainData?.owner
+             ? `${blockchainData.owner.slice(0, 10)}...${blockchainData.owner.slice(-8)}`
+             : "Unavailable"}
+          </strong>
+
+          <span>IDENTITY</span>
+          <strong>SOULBOUND</strong>
+
+          <span>TRANSFERABLE</span>
+          <strong>NO</strong>
+
+          <span>LAST UPDATED</span>
+          <strong>
+            {blockchainData?.updated_at
+              ? new Date(blockchainData.updated_at * 1000).toLocaleString()
+              : "Unavailable"}
+          </strong>
+       </div>
+     </section>
+
+      <section className="panel" style={{ marginTop: "18px" }}>
+        <div className="panel-head">
+          <div>
+            <div className="eyebrow">TRUSTCHAIN PRINCIPLE</div>
+            <h3>Reputation follows verified evidence</h3>
+          </div>
+        </div>
+
+        <p className="panel-description">
+          TrustChain does not treat reputation as a permanent or transferable
+          number. New evidence can update the contributor's reputation while
+          the soulbound identity remains linked to its owner.
+        </p>
+      </section>
+    </>
+  );
+}
 
 export default function App() {
   const [view, setView] = useState("contributors");
